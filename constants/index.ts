@@ -389,22 +389,22 @@ export const aboutUsContent: AboutUsContent = {
   stats: [
     {
       id: "years",
-      value: "10+",
+      value: "2+",
       label: "Years of Experience"
     },
     {
       id: "clients",
-      value: "500+",
+      value: "20+",
       label: "Satisfied Clients"
     },
     {
       id: "certifications",
-      value: "50+",
+      value: "10+",
       label: "Industry Certifications"
     },
     {
       id: "experts",
-      value: "100+",
+      value: "10+",
       label: "Security Experts"
     }
   ],

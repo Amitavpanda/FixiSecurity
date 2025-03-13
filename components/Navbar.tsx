@@ -31,7 +31,7 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="text-3xl font-bold text-primary">CyberShield</div>
+          <div className="text-3xl font-bold text-primary">FixiSecurity</div>
           <div className="hidden space-x-1 md:flex">
             {NavbarOptions.map((item) => (
               <Button

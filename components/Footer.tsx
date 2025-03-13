@@ -16,7 +16,7 @@ const Footer = () => {
           className="text-center mb-4"
         >
           <p className="text-gray-400">
-            © {new Date().getFullYear()} Your Company Name. All rights reserved.
+            © {new Date().getFullYear()} FixiSecurity. All rights reserved.
           </p>
         </motion.div>
 
@@ -46,9 +46,9 @@ const Footer = () => {
             <h5 className="text-white font-semibold mb-2">Quick Links</h5>
             <div className="flex space-x-4">
               {NavbarOptions.map(option => (
-                <a 
-                  key={option.id} 
-                  href={`#${option.id}`} 
+                <a
+                  key={option.id}
+                  href={`#${option.id}`}
                   className="text-gray-400 hover:text-primary"
                 >
                   {option.label}
@@ -77,8 +77,10 @@ const Footer = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-center mb-4"
         >
-          <p className="text-gray-400">Phone: +1 (555) 123-4567</p>
-          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">info@yourdomain.com</a></p>
+          <p className="text-gray-400">Phone: +91 93344 33221</p>
+          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">1941012688.f.harshkumar@gmail.com
+
+          </a></p>
         </motion.div>
 
         {/* Privacy Policy and Terms of Service Links */}
@@ -89,7 +91,7 @@ const Footer = () => {
           className="text-center"
         >
           <p className="text-gray-400">
-            <a href="/privacy-policy" className="hover:text-primary">Privacy Policy</a> | 
+            <a href="/privacy-policy" className="hover:text-primary">Privacy Policy</a> |
             <a href="/terms-of-service" className="hover:text-primary"> Terms of Service</a>
           </p>
         </motion.div>

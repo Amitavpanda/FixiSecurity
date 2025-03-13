@@ -24,9 +24,9 @@ const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex justify-between items-center space-x-8 mb-4"
+          className="flex flex-col md:flex-row justify-between items-center mb-4"
         >
-          <div className="flex items-center space-x-4">
+          <div className="flex justify-center md:justify-start space-x-4 mb-4 md:mb-0">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
               <Facebook className="h-6 w-6 text-gray-400 hover:text-primary transition-colors" />
             </a>
@@ -42,14 +42,14 @@ const Footer = () => {
           </div>
 
           {/* Quick Links Section from NavbarOptions */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center md:items-start mb-4 md:mb-0">
             <h5 className="text-white font-semibold mb-2">Quick Links</h5>
-            <div className="flex space-x-4">
+            <div className="flex flex-col md:flex-row space-x-0 md:space-x-4">
               {NavbarOptions.map(option => (
                 <a
                   key={option.id}
                   href={`#${option.id}`}
-                  className="text-gray-400 hover:text-primary"
+                  className="text-gray-400 hover:text-primary mb-2 md:mb-0"
                 >
                   {option.label}
                 </a>
@@ -78,9 +78,7 @@ const Footer = () => {
           className="text-center mb-4"
         >
           <p className="text-gray-400">Phone: +91 93344 33221</p>
-          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">1941012688.f.harshkumar@gmail.com
-
-          </a></p>
+          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">1941012688.f.harshkumar@gmail.com</a></p>
         </motion.div>
 
         {/* Privacy Policy and Terms of Service Links */}

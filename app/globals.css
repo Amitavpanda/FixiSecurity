@@ -110,3 +110,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.bullet-point {
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: #00ff00; /* Adjust the color as needed */
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  margin-top: 0.25rem; /* Adjust to align with text */
+}

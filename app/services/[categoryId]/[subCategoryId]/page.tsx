@@ -86,7 +86,26 @@ const ServiceDetail = () => {
               className="mt-8 bg-black/40 backdrop-blur-sm border border-primary/20 rounded-lg p-6"
             >
               <h2 className="text-xl font-semibold text-white mb-4">Details</h2>
-              <p className="text-gray-300">{subCategory.details}</p>
+              <p className="text-gray-300 mb-4">{subCategory.details.description}</p>
+              {subCategory.details.methodology && subCategory.details.methodology.length > 0 && (
+                <>
+                  <h3 className="text-lg font-semibold text-white mb-2">Methodology</h3>
+                  <ul className="space-y-3 pl-5">
+                    {subCategory.details.methodology.map((method, index) => (
+                      <motion.li
+                        key={index}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                        className="flex items-start text-gray-300"
+                      >
+                        <div className="bullet-point" />
+                        {method}
+                      </motion.li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </motion.div>
           </div>
 

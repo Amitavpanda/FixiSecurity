@@ -19,7 +19,7 @@ export default function Home() {
             <Toaster />
             <Sonner />
             {/* Your content for the homepage */}
-            <div className="min-h-screen bg-black">
+            <div className="min-h-screen bg-black px-0">
                 <Navbar />
                 <Hero />
                 <WhyChooseUs />

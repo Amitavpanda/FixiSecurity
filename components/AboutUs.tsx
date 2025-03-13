@@ -3,7 +3,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Users, Target, LineChart, Award } from "lucide-react";
+import {  Target, LineChart } from "lucide-react";
 import { aboutUsContent } from "@/constants"; // Ensure this path is correct for your project structure
 import { Card, CardContent } from "@/components/ui/card";
 

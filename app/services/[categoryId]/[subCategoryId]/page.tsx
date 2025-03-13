@@ -6,6 +6,7 @@ import { services } from "@/constants"; // Make sure this path is correct
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const ServiceDetail = () => {
   const router = useRouter();
@@ -116,10 +117,12 @@ const ServiceDetail = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="w-full md:w-2/5 flex justify-center mt-6 md:mt-0"
           >
-            <img
+            <Image
               src={subCategory.image.src} // Use the 'image' property from the subcategory
               alt={`${subCategory.title} Illustration`}
               className="rounded-lg shadow-lg w-full h-auto object-cover" // Style the image for a professional look
+              width={500}
+              height={500}
             />
           </motion.div>
         </motion.div>

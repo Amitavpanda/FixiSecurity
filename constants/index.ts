@@ -345,7 +345,8 @@ export const services = [
         image: NetworkInfrastructureVAPT // Update this path as necessary
       }
     ]
-  }
+  },
+  
 ];
 
 // About Us Content remains unchanged

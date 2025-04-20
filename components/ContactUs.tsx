@@ -277,7 +277,7 @@ const ContactUs = () => {
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h4 className="text-lg font-medium text-white">Phone</h4>
-                      <p className="text-gray-400">+1 (555) 123-4567</p>
+                      <p className="text-gray-400">+91 6363909051</p>
                     </div>
                   </div>
                 </div>

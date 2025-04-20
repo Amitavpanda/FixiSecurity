@@ -1,67 +1,142 @@
-"use client"; // Indicate that this is a client component
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, Mail, Phone, User, MessageSquare } from "lucide-react";
-import { toast } from 'sonner'; // Import toast from sonner
-import { Button } from "@/components/ui/button"; 
-import { Card, CardContent } from "@/components/ui/card"; 
+import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import emailjs from '@emailjs/browser';
+import ReCAPTCHA from "react-google-recaptcha"; // Add reCAPTCHA v2
 
 const ContactUs = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false); 
-  const [formData, setFormData] = useState({ 
-    name: "", 
-    email: "", 
-    contact: "", 
-    message: "", 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ipLimitReached, setIpLimitReached] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    message: "",
   });
+  const [captchaValue, setCaptchaValue] = useState<string | null>(null); // State for CAPTCHA
 
-  const handleSubmit = async (e: React.FormEvent) => { 
+  // Check IP submission limit on component mount
+  useEffect(() => {
+    checkIpSubmissionLimit();
+  }, []);
+
+  const checkIpSubmissionLimit = () => {
+    // Get submission history from localStorage
+    const submissionHistory = JSON.parse(localStorage.getItem('submissionHistory') || '[]');
+    const currentTime = new Date().getTime();
+    
+    // Filter submissions in the last hour
+    const recentSubmissions = submissionHistory.filter(
+      (submission: { timestamp: number }) => 
+        currentTime - submission.timestamp < 3600000 // 1 hour in milliseconds
+    );
+    
+    if (recentSubmissions.length >= 2) {
+      setIpLimitReached(true);
+      toast.error("You have reached the submission limit. Please try again later.");
+    }
+
+    // Clean up old submissions (older than 1 hour)
+    if (submissionHistory.length !== recentSubmissions.length) {
+      localStorage.setItem('submissionHistory', JSON.stringify(recentSubmissions));
+    }
+  };
+
+  const recordSubmission = () => {
+    const submissionHistory = JSON.parse(localStorage.getItem('submissionHistory') || '[]');
+    submissionHistory.push({ timestamp: new Date().getTime() });
+    localStorage.setItem('submissionHistory', JSON.stringify(submissionHistory));
+    
+    // Check if limit reached after this submission
+    if (submissionHistory.length >= 2) {
+      setIpLimitReached(true);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.contact || !formData.message) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
 
-    if (!formData.name || !formData.message) { 
-      toast.error("Name and message are required fields."); // Using sonner to display error
-      return; 
+    if (ipLimitReached) {
+      toast.error("You have reached the submission limit. Please try again later.");
+      return;
+    }
+
+    // Validate CAPTCHA
+    if (!captchaValue) {
+      toast.error("Please complete the CAPTCHA.");
+      return;
     }
 
     setIsSubmitting(true);
 
     try {
+      // Verify the CAPTCHA token on the backend
+      const captchaResponse = await fetch('/api/verifyCaptcha', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ captchaValue }),
+      });
+
+      const captchaResult = await captchaResponse.json();
+
+      if (!captchaResult.success) {
+        throw new Error("Invalid CAPTCHA.");
+      }
+
+      // Using EmailJS to send the form data to your company email
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Using environment variables
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, 
-        { 
-          from_name: formData.name, 
-          from_email: formData.email || 'No email provided', 
-          contact: formData.contact || 'No contact provided', 
-          message: formData.message, 
-        }, 
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          contact_number: formData.contact,
+          message: formData.message,
+          to_email: 'contactus@fixisecurity.com', // Your company email
+        },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! // Using environment variables
       );
 
-      toast.success("Your message has been sent successfully."); // Success toast
+      // Record this submission for IP rate limiting
+      recordSubmission();
 
-      // Clear form data
-      setFormData({ 
-        name: "", 
-        email: "", 
-        contact: "", 
-        message: "", 
+      toast.success("Message sent successfully!");
+
+      // Reset the form after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        contact: "",
+        message: "",
       });
-    } catch (error) { 
-      toast.error("Failed to send message. Please try again later."); // Error toast
-      console.log("error",error)
-    } finally { 
-      setIsSubmitting(false); 
-    } 
+
+      // Clear CAPTCHA
+      setCaptchaValue(null);
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ 
-      ...prev, 
-      [e.target.name]: e.target.value 
-    })); 
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
   return (
@@ -75,7 +150,7 @@ const ContactUs = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">Contact Us</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Have questions or need assistance? We are here to help. Reach out to our team and we will get back to you as soon as possible.
+            Have questions or need assistance? We're here to help. Reach out to our team and we'll get back to you as soon as possible.
           </p>
         </motion.div>
 
@@ -91,7 +166,7 @@ const ContactUs = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-200 flex items-center gap-2">
-                      <User className="h-4 w-4" />
+                      <User className="h-4 w-极4" />
                       Name *
                     </label>
                     <input
@@ -99,7 +174,7 @@ const ContactUs = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-black/40 border border-primary/20 rounded-md focus:outline-none focus:border-primary/40 text-white"
+                      className="w-full px-4 py-2 bg-black极/40 border border-primary/20 rounded-md focus:outline-none focus:border-primary/40 text-white"
                       placeholder="Enter your name"
                       required
                     />
@@ -108,7 +183,7 @@ const ContactUs = () => {
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-200 flex items-center gap-2">
                       <Mail className="h-4 w-4" />
-                      Email (Optional)
+                      Email *
                     </label>
                     <input
                       type="email"
@@ -117,13 +192,14 @@ const ContactUs = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-2 bg-black/40 border border-primary/20 rounded-md focus:outline-none focus:border-primary/40 text-white"
                       placeholder="Enter your email"
+                      required
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm font-medium text-gray-200 flex items-center gap-2">
                       <Phone className="h-4 w-4" />
-                      Contact (Optional)
+                      Contact Number *
                     </label>
                     <input
                       type="tel"
@@ -132,6 +208,7 @@ const ContactUs = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-2 bg-black/40 border border-primary/20 rounded-md focus:outline-none focus:border-primary/40 text-white"
                       placeholder="Enter your contact number"
+                      required
                     />
                   </div>
 
@@ -151,13 +228,21 @@ const ContactUs = () => {
                     />
                   </div>
 
+                  {/* Add reCAPTCHA v2 */}
+                  <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                    onChange={(value) => setCaptchaValue(value)}
+                  />
+
                   <Button
                     type="submit"
                     className="w-full"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || ipLimitReached}
                   >
                     {isSubmitting ? (
                       "Sending..."
+                    ) : ipLimitReached ? (
+                      "Submission Limit Reached"
                     ) : (
                       <>
                         Send Message
@@ -180,19 +265,19 @@ const ContactUs = () => {
             <Card className="bg-black/40 backdrop-blur-sm border-primary/20">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-semibold text-white mb-6">Get in Touch</h3>
-                <div className="space-y-4">
+                <div className="space极-y-4">
                   <div className="flex items-start gap-4">
                     <Mail className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h4 className="text-lg font-medium text-white">Email</h4>
-                      <p className="text-gray-400">1941012688.f.harshkumar@gmail.com</p>
+                      <p className="text-gray-400">contactus@fixisecurity.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h4 className="text-lg font-medium text-white">Phone</h4>
-                      <p className="text-gray-400">+91 93344 33221</p>
+                      <p className="text-gray-400">+1 (555) 123-4567</p>
                     </div>
                   </div>
                 </div>

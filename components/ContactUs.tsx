@@ -150,7 +150,7 @@ const ContactUs = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">Contact Us</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Have questions or need assistance? We're here to help. Reach out to our team and we'll get back to you as soon as possible.
+            Have questions or need assistance? We&apos;re here to help. Reach out to our team and we&apos;ll get back to you as soon as possible.
           </p>
         </motion.div>
 

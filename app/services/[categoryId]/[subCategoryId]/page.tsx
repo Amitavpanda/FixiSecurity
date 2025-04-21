@@ -10,7 +10,15 @@ import Image from "next/image";
 
 const ServiceDetail = () => {
   const router = useRouter();
-  const { categoryId, subCategoryId } = useParams();
+  const params = useParams();
+
+  // Ensure categoryId and subCategoryId exist
+  const categoryId = params?.categoryId as string | undefined;
+  const subCategoryId = params?.subCategoryId as string | undefined;
+
+  if (!categoryId || !subCategoryId) {
+    return <div>Invalid service details</div>;
+  }
 
   const category = services.find((c) => c.id === categoryId);
   const subCategory = category?.subCategories.find((sc) => sc.id === subCategoryId);

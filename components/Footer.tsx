@@ -78,7 +78,7 @@ const Footer = () => {
           className="text-center mb-4"
         >
           <p className="text-gray-400">Phone: +91 6363909051</p>
-          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">1941012688.f.harshkumar@gmail.com</a></p>
+          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">contactus@fixisecurity.com</a></p>
         </motion.div>
 
         {/* Privacy Policy and Terms of Service Links */}

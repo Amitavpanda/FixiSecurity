@@ -9,6 +9,7 @@ import ContactUs from "@/components/ContactUs";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Footer from "@/components/Footer";
 
+export const maxDuration = 60;
 
 export default function Home() {
     return (

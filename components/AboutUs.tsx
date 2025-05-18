@@ -132,50 +132,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Business Development Team */}
-        <div className="mt-16">
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-white mb-8 text-center"
-          >
-            Business Development Team
-          </motion.h3>
-          <div className="text-center text-gray-400">
-            <p>Satyam Raj - Driving business growth and client relationships.</p>
-          </div>
-        </div>
 
-        {/* Developer */}
-        <div className="mt-16">
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-white mb-8 text-center"
-          >
-            Developer
-          </motion.h3>
-          <div className="text-center text-gray-400">
-            <p>Amitav Panda - Expert in software development and system design.</p>
-          </div>
-        </div>
-
-        {/* Technical Team */}
-        <div className="mt-16">
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-white mb-8 text-center"
-          >
-            Technical Team
-          </motion.h3>
-          <div className="text-center text-gray-400">
-            <p>Harsh Kumar, Samprit Das, Vivek Gupta, Akash More, Jay Kumar Pandey - Specialized in cybersecurity, threat analysis, and technical solutions.</p>
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -1,13 +1,18 @@
 // app/about/page.tsx
 "use client"; // Indicate this is a client component
 
-import React from "react";
+import React, { use } from "react";
 import { motion } from "framer-motion";
 import {  Target, LineChart } from "lucide-react";
 import { aboutUsContent } from "@/constants"; // Ensure this path is correct for your project structure
 import { Card, CardContent } from "@/components/ui/card";
 
 const AboutUs = () => {
+
+
+
+
+      
   return (
     <section id="about" className="py-20 bg-gradient-to-b from-black to-black/95">
       <div className="container max-w-7xl mx-auto px-4">
@@ -100,37 +105,7 @@ const AboutUs = () => {
           ))}
         </motion.div>
 
-        {/* Team */}
-        <div>
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-2xl font-bold text-white mb-8 text-center"
-          >
-            Our Leadership Team
-          </motion.h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {aboutUsContent.team.map((member, index) => (
-              <motion.div
-                key={member.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="bg-black/40 backdrop-blur-sm border-primary/20 hover:border-primary/40 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <h4 className="text-xl font-semibold text-white mb-2">
-                      {member.name}
-                    </h4>
-                    <div className="text-primary mb-3">{member.role}</div>
-                    <p className="text-gray-400">{member.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+
 
 
       </div>

@@ -1,7 +1,7 @@
 // app/about/page.tsx
 "use client"; // Indicate this is a client component
 
-import React, { use } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import {  Target, LineChart } from "lucide-react";
 import { aboutUsContent } from "@/constants"; // Ensure this path is correct for your project structure

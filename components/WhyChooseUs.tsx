@@ -1,7 +1,7 @@
 "use client"; // Indicates this is a client-rendered component
 
 import { motion } from "framer-motion";
-import { CheckCircle, ShieldCheck, Award, Clock, Users } from "lucide-react";
+import { CheckCircle, ShieldCheck, Clock, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 // Define the features array
@@ -11,6 +11,7 @@ const features = [
         title: "24/7 Security Operation Center",
         description: "Round-the-clock monitoring and response to security threats."
     },
+
     {
         icon: <Users className="h-8 w-8 text-primary" />,
         title: "Industry-Leading Threat Intelligence",

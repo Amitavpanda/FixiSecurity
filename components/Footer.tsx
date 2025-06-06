@@ -77,8 +77,8 @@ const Footer = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-center mb-4"
         >
-          <p className="text-gray-400">Phone: +91 6363909051</p>
-          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">contactus@fixisecurity.com</a></p>
+          <p className="text-gray-400">Phone: +91 8062179332</p>
+          <p className="text-gray-400">Email: <a href="mailto:info@yourdomain.com" className="text-primary">services@fixisecurity.com</a></p>
         </motion.div>
 
         {/* Privacy Policy and Terms of Service Links */}

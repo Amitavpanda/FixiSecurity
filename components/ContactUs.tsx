@@ -270,14 +270,14 @@ const ContactUs = () => {
                     <Mail className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h4 className="text-lg font-medium text-white">Email</h4>
-                      <p className="text-gray-400">contactus@fixisecurity.com</p>
+                      <p className="text-gray-400">services@fixisecurity.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h4 className="text-lg font-medium text-white">Phone</h4>
-                      <p className="text-gray-400">+91 6363909051</p>
+                      <p className="text-gray-400">+91 8062179332</p>
                     </div>
                   </div>
                 </div>

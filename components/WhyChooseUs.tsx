@@ -12,11 +12,6 @@ const features = [
         description: "Round-the-clock monitoring and response to security threats."
     },
     {
-        icon: <Award className="h-8 w-8 text-primary" />,
-        title: "ISO 27001 Certified",
-        description: "Internationally recognized security management standards."
-    },
-    {
         icon: <Users className="h-8 w-8 text-primary" />,
         title: "Industry-Leading Threat Intelligence",
         description: "Advanced threat detection and prevention systems."
